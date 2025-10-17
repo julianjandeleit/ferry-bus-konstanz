@@ -1,26 +1,31 @@
-.PHONY: dev build publish
+# Makefile for ferry-bus-konstanz project
 
-# Local development: build Rust WASM, copy pkg, start Vite dev server
-dev:
-	@echo "🌀 Building Rust WASM..."
-	cd rust && wasm-pack build --target web
-	@echo "📦 Copying WASM pkg to npm project..."
-	cp -r rust/pkg/* ferry-bus-display/pkg/
-	@echo "🚀 Starting Vite dev server..."
-	cd ferry-bus-display && npm install && npm run dev
+# Default target
+.PHONY: all build dev publish clean
 
-# Build only: Rust WASM + copy pkg (no dev server)
+# Build Rust WASM and copy results to npm project
 build:
 	@echo "🌀 Building Rust WASM..."
 	cd rust && wasm-pack build --target web --release
 	@echo "📦 Copying WASM pkg to npm project..."
+	mkdir -p ferry-bus-display/pkg
 	cp -r rust/pkg/* ferry-bus-display/pkg/
 	@echo "✅ Build complete."
 
-# Publish for GitHub Pages: build + copy pkg + npm build
+# Start local development server
+dev: build
+	@echo "🚀 Starting development server..."
+	cd ferry-bus-display && npm install && npm run dev
+
+# Build for production (for GitHub Pages deployment)
 publish: build
-	@echo "📦 Installing npm dependencies..."
-	cd ferry-bus-display && npm install
-	@echo "📦 Building static site..."
-	cd ferry-bus-display && npm run build
-	@echo "✅ Ready to deploy: ferry-bus-display/dist contains static site"
+	@echo "🏗️  Building static site for deployment..."
+	cd ferry-bus-display && npm install && npm run build
+	@echo "✅ Static site built in ferry-bus-display/dist"
+
+# Clean build artifacts
+clean:
+	@echo "🧹 Cleaning build artifacts..."
+	rm -rf rust/pkg ferry-bus-display/pkg ferry-bus-display/dist
+	cargo clean
+	@echo "✅ Clean complete."
