@@ -1,6 +1,5 @@
 # Makefile for ferry-bus-konstanz project
 
-# Default target
 .PHONY: all build dev publish clean
 
 # Build Rust WASM and copy results to npm project
@@ -10,7 +9,7 @@ build:
 	@echo "📦 Copying WASM pkg to npm project..."
 	mkdir -p ferry-bus-display/pkg
 	cp -r rust/pkg/* ferry-bus-display/pkg/
-	@echo "✅ Build complete."
+	@echo "✅ Rust WASM build complete."
 
 # Start local development server
 dev: build
@@ -19,9 +18,9 @@ dev: build
 
 # Build for production (for GitHub Pages deployment)
 publish: build
-	@echo "🏗️  Building static site for deployment..."
+	@echo "🏗️ Building static site for production..."
 	cd ferry-bus-display && npm install && npm run build
-	@echo "✅ Static site built in ferry-bus-display/dist"
+	@echo "✅ Static site ready in ferry-bus-display/dist"
 
 # Clean build artifacts
 clean:

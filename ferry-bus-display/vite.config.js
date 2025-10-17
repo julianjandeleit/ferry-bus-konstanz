@@ -1,7 +1,10 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
 
 export default defineConfig({
+  base: '/ferry-bus-konstanz/',  // adjust to your repo name
   server: {
-    open: true
+    fs: {
+      allow: ['../rust/pkg'] // allow access to WASM pkg
+    }
   }
-});
+})
