@@ -1,0 +1,51 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Node modules
+ferry-bus-display/node_modules/
+ferry-bus-display/package-lock.json
+
+# Vite build outputs / caches
+ferry-bus-display/dist/
+ferry-bus-display/.vite/
+
+# Rust build artifacts
+rust/target/
+rust/pkg/
+rust/Cargo.lock
+
+# Python caches
+python/__pycache__/
+python/*.pyc
+python/*.pyo
+
+# macOS / Linux system files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Misc
+.env
