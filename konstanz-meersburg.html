@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konstanz → Meersburg</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Konstanz → Meersburg</h1>
+  <a class="back-link" href="index.html">← Back</a>
+</header>
+<main>
+  <div id="loading">Loading...</div>
+  <div id="schedule"></div>
+</main>
+
+<script type="module">
+import init, { fetch_ferries } from './pkg/ferry_bus_wasm.js';
+
+async function render() {
+  await init();
+  const ferryData = await fetch_ferries("Konstanz Allmannsdorf", "Meersburg Kirche");
+  const scheduleEl = document.getElementById("schedule");
+  scheduleEl.innerHTML = '';
+
+  ferryData.forEach(ferry => {
+    if (ferry.buses.length === 0) return;
+    const ferryCard = document.createElement('div');
+    ferryCard.className = 'ferry-card';
+    const title = document.createElement('h2');
+    title.textContent = `Ferry Departure: ${ferry.ferry_dep}`;
+    ferryCard.appendChild(title);
+
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+      <tr>
+        <th>Bus</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Dep</th>
+        <th>Arr</th>
+        <th>First Possible</th>
+      </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    ferry.buses.forEach(bus => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${bus.name}</td>
+        <td>${bus.origin}</td>
+        <td>${bus.destination}</td>
+        <td>${bus.dep}</td>
+        <td>${bus.arr}</td>
+        <td>${bus.first_possible ? '✅' : ''}</td>`;
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    ferryCard.appendChild(table);
+    scheduleEl.appendChild(ferryCard);
+  });
+  document.getElementById("loading").style.display = 'none';
+}
+
+render();
+</script>
+</body>
+</html>

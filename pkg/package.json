@@ -1,0 +1,15 @@
+{
+  "name": "ferry_bus_wasm",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "ferry_bus_wasm_bg.wasm",
+    "ferry_bus_wasm.js",
+    "ferry_bus_wasm.d.ts"
+  ],
+  "main": "ferry_bus_wasm.js",
+  "types": "ferry_bus_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
