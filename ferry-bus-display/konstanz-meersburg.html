@@ -26,7 +26,10 @@ async function render() {
   scheduleEl.innerHTML = '';
 
   ferryData.forEach(ferry => {
-    if (ferry.buses.length === 0) return;
+    // Filter to only include buses that are first_possible
+    const firstBuses = ferry.buses.filter(bus => bus.first_possible);
+    if (firstBuses.length === 0) return;
+
     const ferryCard = document.createElement('div');
     ferryCard.className = 'ferry-card';
     const title = document.createElement('h2');
@@ -42,20 +45,18 @@ async function render() {
         <th>Destination</th>
         <th>Dep</th>
         <th>Arr</th>
-        <th>First Possible</th>
       </tr>`;
     table.appendChild(thead);
 
     const tbody = document.createElement('tbody');
-    ferry.buses.forEach(bus => {
+    firstBuses.forEach(bus => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${bus.name}</td>
         <td>${bus.origin}</td>
         <td>${bus.destination}</td>
         <td>${bus.dep}</td>
-        <td>${bus.arr}</td>
-        <td>${bus.first_possible ? '✅' : ''}</td>`;
+        <td>${bus.arr}</td>`;
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
