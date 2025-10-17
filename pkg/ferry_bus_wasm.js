@@ -224,7 +224,7 @@ export function fetch_ferries(from, to) {
     return ret;
 }
 
-function __wbg_adapter_8(arg0, arg1, arg2) {
+function __wbg_adapter_6(arg0, arg1, arg2) {
     wasm.closure51_externref_shim(arg0, arg1, arg2);
 }
 
@@ -472,7 +472,7 @@ function __wbg_get_imports() {
     };
     imports.wbg.__wbindgen_cast_7044511bef3023a2 = function(arg0, arg1) {
         // Cast intrinsic for `Closure(Closure { dtor_idx: 50, function: Function { arguments: [Externref], shim_idx: 51, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
-        const ret = makeMutClosure(arg0, arg1, 50, __wbg_adapter_8);
+        const ret = makeMutClosure(arg0, arg1, 50, __wbg_adapter_6);
         return ret;
     };
     imports.wbg.__wbindgen_init_externref_table = function() {
