@@ -22,6 +22,7 @@ publish: build
 	@echo "📦 Copy extra HTML files and WASM into dist/"
 	cp ferry-bus-display/konstanz-meersburg.html ferry-bus-display/dist/
 	cp ferry-bus-display/meersburg-konstanz.html ferry-bus-display/dist/
+	cp ferry-bus-display/style.css ferry-bus-display/dist
 	cp -r ferry-bus-display/pkg ferry-bus-display/dist/pkg
 	@echo "✅ All files ready in dist/"
 
