@@ -1,7 +1,8 @@
 use wasm_bindgen::prelude::*;
 use gloo_net::http::Request;
 use serde::{Serialize, Deserialize};
-use chrono::{DateTime, Utc, TimeZone, Datelike, Duration};
+use chrono::{DateTime, TimeZone, Datelike, Duration};
+use chrono_tz::Europe::Berlin;
 use gloo_utils::format::JsValueSerdeExt;
 use urlencoding::encode;
 
@@ -86,13 +87,14 @@ pub async fn fetch_ferries(from: &str, to: &str) -> Result<JsValue, JsValue> {
         let origin = first_leg["origin"]["name"].as_str().unwrap_or("").to_string();
         let destination = last_leg["destination"]["name"].as_str().unwrap_or("").to_string();
 
-        let dep_dt = DateTime::parse_from_rfc3339(dep_str).unwrap().with_timezone(&Utc);
-        let arr_dt = DateTime::parse_from_rfc3339(arr_str).unwrap().with_timezone(&Utc);
+        // Parse RFC3339 timestamps and convert to Europe/Berlin local timezone
+        let dep_dt = DateTime::parse_from_rfc3339(dep_str).unwrap().with_timezone(&Berlin);
+        let arr_dt = DateTime::parse_from_rfc3339(arr_str).unwrap().with_timezone(&Berlin);
 
         let mut ferry_indices_in_window = Vec::new();
         for (idx, ferry) in ferry_map.iter().enumerate() {
             let parts: Vec<_> = ferry.ferry_dep.split(':').collect();
-            let f_dt = Utc
+            let f_dt = Berlin
                 .with_ymd_and_hms(dep_dt.year(), dep_dt.month(), dep_dt.day(),
                                   parts[0].parse().unwrap(), parts[1].parse().unwrap(), 0)
                 .unwrap();
