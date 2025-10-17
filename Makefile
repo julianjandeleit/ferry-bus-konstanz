@@ -18,9 +18,12 @@ dev: build
 
 # Build for production (for GitHub Pages deployment)
 publish: build
-	@echo "🏗️ Building static site for production..."
 	cd ferry-bus-display && npm install && npm run build
-	@echo "✅ Static site ready in ferry-bus-display/dist"
+	@echo "📦 Copy extra HTML files and WASM into dist/"
+	cp ferry-bus-display/konstanz-meersburg.html ferry-bus-display/dist/
+	cp ferry-bus-display/meersburg-konstanz.html ferry-bus-display/dist/
+	cp -r ferry-bus-display/pkg ferry-bus-display/dist/pkg
+	@echo "✅ All files ready in dist/"
 
 # Clean build artifacts
 clean:
