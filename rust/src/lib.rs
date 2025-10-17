@@ -22,7 +22,7 @@ pub struct Ferry {
 }
 
 async fn get_stop_id(name: &str) -> Result<String, JsValue> {
-    let url = format!("https://v6.db.transport.rest/locations?query={}&results=1", encode(name));
+    let url = format!("https://v6.db.transport.rest/locations?query={}&results=1&stops=true&poi=false&addresses=false", encode(name));
     let resp = Request::get(&url)
         .send()
         .await
@@ -43,7 +43,7 @@ pub async fn fetch_ferries(from: &str, to: &str) -> Result<JsValue, JsValue> {
     let to_id = get_stop_id(to).await?;
 
     let url = format!(
-        "https://v6.db.transport.rest/journeys?from={}&to={}&results=50&products[bus]=true",
+        "https://v6.db.transport.rest/journeys?from={}&to={}&results=5&products[bus]=true&transfers=1",
         encode(&from_id),
         encode(&to_id)
     );

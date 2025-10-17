@@ -2,7 +2,7 @@
 
 Shows when a local public transport bus is likely to cross the Lake Constance on the Konstanz to Meersburg ferry.
 
-Built on dbv6.transport.rest api, rust-wasm and vite.
+Built on https://v6.db.transport.rest/ api, rust-wasm and vite.
 
 Looks at live departurs that cross from Konstanz to Meersburg and compares it with a fixed ferry schedule.
 
